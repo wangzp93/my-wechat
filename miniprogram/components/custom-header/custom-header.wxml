@@ -1,0 +1,8 @@
+<view style="padding-top:{{ top }}px; padding-bottom: {{ bottom }}rpx; color:{{ color }}; background-color:{{ bgColor }}">
+    <view class="content" style="height: {{ height }}px; line-height: {{ height }}px;">
+        <van-icon wx:if="{{showBack}}" name="arrow-left" class="back"
+                  bind:tap="goBack"
+                  style="height:{{ height }}px;" />
+        {{ title }}
+    </view>
+</view>

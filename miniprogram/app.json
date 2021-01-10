@@ -1,0 +1,36 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/hs-video/hs-video"
+    ],
+    "tabBar": {
+        "custom": true,
+        "color": "#111",
+        "selectedColor": "#C00",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "text": "听老歌",
+                "pagePath": "pages/index/index",
+                "iconPath": "images/tabbar/music-icon.png",
+                "selectedIconPath": "images/tabbar/music-active.png"
+            },
+            {
+                "text": "看视频",
+                "pagePath": "pages/hs-video/hs-video",
+                "iconPath": "images/tabbar/video-icon.png",
+                "selectedIconPath": "images/tabbar/video-active.png"
+            }
+        ]
+    },
+    "window": {
+        "backgroundColor": "#F6F6F6",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#C00",
+        "navigationBarTitleText": "我的小程序",
+        "navigationBarTextStyle": "white"
+    },
+    "sitemapLocation": "sitemap.json",
+    "style": "v2"
+}

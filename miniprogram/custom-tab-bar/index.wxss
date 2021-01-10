@@ -1,0 +1,22 @@
+.tabbar {
+    height: 140rpx;
+    display: flex;
+    border-top: 1rpx solid #E0E0E0;
+}
+.tabbar-item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48rpx;
+    background: #FFF;
+    color: #111;
+}
+.tabbar-item.active {
+    color: #C00;
+}
+.tabbar-icon {
+    margin-right: 10rpx;
+    width: 60rpx;
+    height: 60rpx;
+}

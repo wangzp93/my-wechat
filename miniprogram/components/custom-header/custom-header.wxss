@@ -1,0 +1,18 @@
+.wrap {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    font-size: 38rpx;
+}
+.back {
+    position: absolute;
+    left: 0;
+    width: 64rpx;
+    font-size: 48rpx;
+}
+
+.content {
+    position: relative;
+    text-align: center;
+    margin: 0 4rpx;
+}
