@@ -69,3 +69,21 @@ export function wxToMini(appId, path) {
         })
     })
 }
+
+export function wxShowLoading(title) {
+    wx.showLoading({
+        title,
+        mask: true,
+        success() {},
+        fail() {},
+        complete() {}
+    })
+}
+
+export function wxHideLoading() {
+    wx.hideLoading({
+        success() {},
+        fail() {},
+        complete() {}
+    })
+}
