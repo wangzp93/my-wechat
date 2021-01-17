@@ -1,14 +1,50 @@
 /**
+ * 跳转页面
+ */
+export function wxNavigateTo(url) {
+    return new Promise((resolve, reject)=> {
+        wx.navigateTo({
+            url,
+            success() {
+                resolve()
+            },
+            fail() {
+                reject()
+            },
+            complete() {}
+        })
+    })
+}
+
+/**
+ * 重定向
+ */
+export function wxRedirectTo(url) {
+    return new Promise((resolve, reject)=> {
+        wx.redirectTo({
+            url,
+            success() {
+                resolve()
+            },
+            fail() {
+                reject()
+            },
+            complete() {}
+        })
+    })
+}
+
+/**
  * 微信获取用户信息
  */
 export function wxGetUserInfo() {
     return new Promise((resolve, reject) => {
         wx.getUserInfo({
             lang: 'zh_CN',
-            success: res => {
+            success(res) {
                 resolve(res)
             },
-            fail: error => {
+            fail(error) {
                 reject(error)
             }
         })
@@ -21,31 +57,15 @@ export function wxGetUserInfo() {
 export function wxLogin() {
     return new Promise((resolve, reject) => {
         wx.login({
-            success: res => {
+            success(res) {
                 if (res.code) {
                     resolve(res.code)
                 } else {
                     reject(res)
                 }
             },
-            fail: error => {
+            fail(error) {
                 reject(error)
-            }
-        })
-    })
-}
-
-/**
- * 获取系统信息
- */
-export function wxGetSystemInfo() {
-    return new Promise((resolve, reject) => {
-        wx.getSystemInfo({
-            success: res => {
-                resolve(res)
-            },
-            fail: err => {
-                reject(err)
             }
         })
     })
@@ -70,6 +90,9 @@ export function wxToMini(appId, path) {
     })
 }
 
+/**
+ * 开启loading
+ */
 export function wxShowLoading(title) {
     wx.showLoading({
         title,
@@ -80,6 +103,9 @@ export function wxShowLoading(title) {
     })
 }
 
+/**
+ * 关闭loading
+ */
 export function wxHideLoading() {
     wx.hideLoading({
         success() {},
