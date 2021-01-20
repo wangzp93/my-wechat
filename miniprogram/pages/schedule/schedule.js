@@ -1,18 +1,20 @@
-// miniprogram/pages/hs-video/hs-video.js
+// miniprogram/pages/schedule/schedule.js
 Page({
 
     /**
      * 页面的初始数据
      */
-    data: {
-
-    },
+    data: {},
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        // 重置tabbar
+        this.getTabBar().setData({
+            selected: 'schedule'
+        })
+        // end
     },
 
     /**

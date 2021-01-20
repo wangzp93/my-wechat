@@ -1,12 +1,10 @@
-// miniprogram/pages/index/index.js
+// miniprogram/pages/me/me.js
 Page({
 
     /**
      * 页面的初始数据
      */
-    data: {
-
-    },
+    data: {},
 
     /**
      * 生命周期函数--监听页面加载
@@ -14,7 +12,7 @@ Page({
     onLoad: function (options) {
         // 重置tabbar
         this.getTabBar().setData({
-            selected: 'index'
+            selected: 'me'
         })
         // end
     },

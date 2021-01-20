@@ -3,20 +3,38 @@ Component({
      * 组件的初始数据
      */
     data: {
-        selected: 'music',
+        selected: 'index',
         list: [
             {
                 id: 'index',
-                text: '听老歌',
+                text: '首页',
                 url: '/pages/index/index',
-                icon: '/images/tabbar/music-icon.png',
-                selectedIcon: '/images/tabbar/music-active.png'
+                icon: '/images/tabbar/home.png',
+                selectedIcon: '/images/tabbar/home-active.png'
             }, {
-                id: 'video',
-                text: '看直播',
-                url: '/pages/hs-video/hs-video',
-                icon: '/images/tabbar/video-icon.png',
-                selectedIcon: '/images/tabbar/video-active.png'
+                id: 'class',
+                text: '班级',
+                url: '/pages/class/class',
+                icon: '/images/tabbar/class.png',
+                selectedIcon: '/images/tabbar/class-active.png'
+            }, {
+                id: 'schedule',
+                text: '课表',
+                url: '/pages/schedule/schedule',
+                icon: '/images/tabbar/schedule.png',
+                selectedIcon: '/images/tabbar/schedule-active.png'
+            }, {
+                id: 'party',
+                text: '活动',
+                url: '/pages/party/party',
+                icon: '/images/tabbar/party.png',
+                selectedIcon: '/images/tabbar/party-active.png'
+            }, {
+                id: 'me',
+                text: '我的',
+                url: '/pages/me/me',
+                icon: '/images/tabbar/me.png',
+                selectedIcon: '/images/tabbar/me-active.png'
             }
         ]
     },
@@ -26,7 +44,7 @@ Component({
      */
     methods: {
         switchTab(e) {
-            const { path: url } = e.currentTarget.dataset
+            const { url } = e.currentTarget.dataset
             wx.switchTab({
                 url
             })

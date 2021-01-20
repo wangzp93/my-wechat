@@ -1,8 +1,8 @@
 <view class="tabbar">
-    <view wx:for="{{ list }}" wx:key="index" class="tabbar-item"
-          data-path="{{ item.pagePath }}" bind:tap="switchTab"
+    <view wx:for="{{ list }}" wx:key="index" class="tabbar-item {{ selected === item.id ? 'active' : '' }}"
+          bind:tap="switchTab" data-url="{{ item.url }}"
     >
-        <image class="tabbar-icon {{ selected === item.id ? 'active' : '' }}"
+        <image class="tabbar-icon"
                src="{{ selected === item.id ? item.selectedIcon : item.icon }}"></image>
         <view>{{ item.text }}</view>
     </view>
