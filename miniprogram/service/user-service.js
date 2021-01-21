@@ -1,6 +1,43 @@
-import { http } from '../utils/http-utils'
+import { cloudFunction, http } from '../utils/http-utils'
 import { wxGetUserInfo, wxLogin } from "../utils/wx-utils"
 import { globalData } from "../utils/init-utils";
+
+/**
+ * 用户静默登录-云函数
+ */
+export function autoLoginCloud() {
+    cloudFunction('autoLogin').then(userInfo=> {
+        globalData.setData({
+            userInfo
+        })
+
+        return userInfo
+    })
+}
+
+/**
+ * 用户主动登录-云函数
+ */
+export function userLoginCloud() {
+    return wxGetUserInfo().then(user=> {
+        const params = {
+            userName: user.nickName,        // 昵称
+            userAvatar: user.avatarUrl,     // 头像
+            gender: user.gender,            // 性别
+            country: user.country,          // 国家
+            province: user.province,        // 省
+            city: user.city,                // 城市
+            language: user.language         // 语言
+        }
+        return cloudFunction('userLogin', params)
+    }).then(userInfo=> {
+        globalData.setData({
+            userInfo
+        })
+
+        return userInfo
+    })
+}
 
 /**
  * 用户静默登录

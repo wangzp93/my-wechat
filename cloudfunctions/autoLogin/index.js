@@ -15,11 +15,7 @@ exports.main = async (event, context) => {
     try {
         const { OPENID } = cloud.getWXContext()
 
-        console.log(context)
-        console.log(cloud.getWXContext())
-
-
-        // 根据openid获取用户信息
+        // 根据openId获取用户信息
         let userInfo = await collection.doc(OPENID).get().then(res => {
             return res ? res.data : null     // 处理查询为空
         })
@@ -43,9 +39,12 @@ async function addUser(_id, parentId) {
         const data = {
             _id,
             parentId,
-            userAvatar: 'https://images-1300484082.cos.ap-chengdu.myqcloud.com/default_headimg.png',
+            userId: _id,
             userName: '用户' + _id.substr(-6),    // 用户orRoM4
+            userAvatar: 'https://images-1300484082.cos.ap-chengdu.myqcloud.com/default_headimg.png',
+            gender: 0,      // 性别 0未知，1男，2女
             createTime: new Date(),        // 注册时间
+            isAuz: 0,       // 用户是否授权
         }
 
         await collection.add({

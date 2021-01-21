@@ -1,4 +1,4 @@
-import { autoLogin } from './service/user-service';
+import { autoLoginCloud, autoLogin } from './service/user-service';
 import { initGlobal } from "./utils/init-utils";
 
 
@@ -8,6 +8,7 @@ App({
         initGlobal()
 
         // 静默登录
+        autoLoginCloud()
         // autoLogin()
     },
 
