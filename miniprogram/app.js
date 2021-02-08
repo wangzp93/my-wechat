@@ -1,11 +1,11 @@
 import { autoLoginCloud, autoLogin } from './service/user-service';
-import { initGlobal } from "./utils/init-utils";
+import { init } from "./utils/init-utils";
 
 
 App({
     onLaunch: function (options) {
-        // 初始化全局
-        initGlobal()
+        // 初始化
+        init()
 
         // 静默登录
         autoLoginCloud()

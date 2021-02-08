@@ -1,53 +1,10 @@
-/**
- * 全局变量
- */
-function GlobalData() {
-    let data = {}
-    this.setData = function(newData) {
-        for (let key in newData) {
-            data[key] = newData[key]
-        }
-    }
-    this.getData = function(key) {
-        if (key) {
-            return data[key]
-        } else {
-            return data
-        }
-    }
-    this.remove = function(key) {
-        delete data[key]
-    }
-}
-
-export const globalData = new GlobalData()
-
-/**
- * 初始化全局
- */
-export function initGlobal() {
-    // 初始化环境
-    const { envVersion, host, cloudEnvId } = initEnv()
-
-    // 初始化平台
-    const { platform } = wx.getSystemInfoSync()     // devtools | android | ios
-
-    // 初始化云服务
-    initWxCloud(cloudEnvId)
-
-    globalData.setData({
-        envVersion,
-        host,
-        cloudEnvId,
-        platform
-    })
-}
+import { wxSetStorage } from "./wx-utils";
 
 /**
  * 初始化环境
  */
-function initEnv() {
-    let envVersion = 'prod',    // 环境
+export function init() {
+    let envVersion = 'release',    // 环境
         host = 'https://api.hongsong.club',  // 请求host
         cloudEnvId = 'dev-8jxb0'     // 云服务环境id
 
@@ -69,17 +26,23 @@ function initEnv() {
         }
     }
 
-    return {
+    // 初始化平台
+    const { platform } = wx.getSystemInfoSync()     // devtools | android | ios
+
+    initCloud(cloudEnvId)
+
+    wxSetStorage({
         envVersion,
         host,
-        cloudEnvId
-    }
+        cloudEnvId,
+        platform
+    })
 }
 
 /**
  * 初始化云开发
  */
-function initWxCloud(cloudEnvId) {
+function initCloud(cloudEnvId) {
     if (!wx.cloud) {
         console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {

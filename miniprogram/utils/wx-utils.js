@@ -113,3 +113,25 @@ export function wxHideLoading() {
         complete() {}
     })
 }
+
+/**
+ * 批量设置storage
+ */
+export function wxSetStorage(obj) {
+    for (let key in obj) {
+        wx.setStorageaSync(key, obj[key])
+    }
+}
+
+/**
+ * 批量获取storage
+ */
+export function wxGetStorage() {
+    const keys = wx.getStorageInfoSync().keys,
+        data = {}
+    for (let i=0, len=keys.length; i<len; i++) {
+        const key = keys[i]
+        data[key] = wx.getStorageSync(key)
+    }
+    return data
+}
