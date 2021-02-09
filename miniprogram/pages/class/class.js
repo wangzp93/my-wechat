@@ -11,9 +11,11 @@ Page({
      */
     onLoad: function (options) {
         // 重置tabbar
-        this.getTabBar().setData({
-            selected: 'class'
-        })
+        if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+            this.getTabBar().setData({
+                selected: 'music'
+            })
+        }
         // end
     },
 

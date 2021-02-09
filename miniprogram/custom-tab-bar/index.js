@@ -8,7 +8,7 @@ Component({
             {
                 id: 'index',
                 text: '首页',
-                url: '/pages/index/index',
+                url: '/pages/house-price/index',
                 icon: '/images/tabbar/home.png',
                 selectedIcon: '/images/tabbar/home-active.png'
             }, {
@@ -43,8 +43,8 @@ Component({
      * 组件的方法列表
      */
     methods: {
-        switchTab(e) {
-            const { url } = e.currentTarget.dataset
+        switchTab(event) {
+            const { url } = event.currentTarget.dataset
             wx.switchTab({
                 url
             })

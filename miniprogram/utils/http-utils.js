@@ -1,7 +1,6 @@
-import { globalData } from "./init-utils";
 import { wxShowLoading, wxHideLoading } from "./wx-utils";
 
-const { host } = globalData.getData()   // 全局host
+const { host } = wx.getStorageSync('host')   // 全局host
 let reqCount = 0    // 当前请求中的个数，用来控制loading
 
 /**
@@ -127,12 +126,12 @@ export function checkSession(sessionId) {
         if (sessionId) {    // 参数中自带sessionId，直接返回
             resolve(sessionId)
         } else {    // 参数中没有，从全局缓存中取
-            const { userInfo } = globalData.getData()
+            const userInfo = wx.getStorageSync('userInfo')
             if (userInfo && userInfo.sessionId) {     // 缓存中有sessionId
                 resolve(userInfo.sessionId)
             } else {    // 缓存中没有sessionId，重复获取
                 const timer = setInterval(()=> {
-                    const { userInfo } = globalData.getData()
+                    const userInfo = wx.getStorageSync('userInfo')
                     if (userInfo && userInfo.sessionId) {     // 缓存中有sessionId
                         clearInterval(timer)
                         resolve(userInfo.sessionId)

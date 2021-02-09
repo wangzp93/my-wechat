@@ -1,5 +1,3 @@
-import { wxSetStorage } from "./wx-utils";
-
 /**
  * 初始化环境
  */
@@ -31,12 +29,10 @@ export function init() {
 
     initCloud(cloudEnvId)
 
-    wxSetStorage({
-        envVersion,
-        host,
-        cloudEnvId,
-        platform
-    })
+    wx.setStorageSync('envVersion', envVersion)
+    wx.setStorageSync('host', host)
+    wx.setStorageSync('cloudEnvId', cloudEnvId)
+    wx.setStorageSync('platform', platform)
 }
 
 /**

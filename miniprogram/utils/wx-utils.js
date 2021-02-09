@@ -119,7 +119,7 @@ export function wxHideLoading() {
  */
 export function wxSetStorage(obj) {
     for (let key in obj) {
-        wx.setStorageaSync(key, obj[key])
+        wx.setStorageSync(key, obj[key])
     }
 }
 

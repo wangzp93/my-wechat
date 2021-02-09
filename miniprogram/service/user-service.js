@@ -1,15 +1,12 @@
 import { cloudFunction, http } from '../utils/http-utils'
 import { wxGetUserInfo, wxLogin } from "../utils/wx-utils"
-import { globalData } from "../utils/init-utils";
 
 /**
  * 用户静默登录-云函数
  */
 export function autoLoginCloud() {
     cloudFunction('autoLogin').then(userInfo=> {
-        globalData.setData({
-            userInfo
-        })
+        wx.setStorageSync('userInfo', userInfo)
 
         return userInfo
     })
@@ -31,9 +28,7 @@ export function userLoginCloud() {
         }
         return cloudFunction('userLogin', params)
     }).then(userInfo=> {
-        globalData.setData({
-            userInfo
-        })
+        wx.setStorageSync('userInfo', userInfo)
 
         return userInfo
     })
@@ -53,9 +48,7 @@ export function autoLogin() {
         return http.post(url, params)
     }).then(userInfo=> {
         // 登录信息缓存到全局
-        globalData.setData({
-            userInfo
-        })
+        wx.setStorageSync('userInfo', userInfo)
 
         return userInfo
     })
@@ -84,9 +77,7 @@ export function userLogin() {
         return http.post(url, params)
     }).then(userInfo=> {
         // 登录信息缓存到全局
-        globalData.setData({
-            userInfo
-        })
+        wx.setStorageSync('userInfo', userInfo)
 
         return userInfo
     })

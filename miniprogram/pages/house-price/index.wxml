@@ -1,0 +1,6 @@
+<van-field
+        label="成交价"
+        model:value="{{ dealPrice }}"
+        type="number"
+        placeholder="请输入成交价"
+/>

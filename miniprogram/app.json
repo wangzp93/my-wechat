@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/house-price/index",
     "pages/index/index",
     "pages/class/class",
     "pages/schedule/schedule",
@@ -15,7 +16,7 @@
     "list": [
       {
         "text": "首页",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/house-price/index",
         "iconPath": "images/tabbar/home.png",
         "selectedIconPath": "images/tabbar/home-active.png"
       },

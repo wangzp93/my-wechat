@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "看直播",
+  "disableScroll": true,
+  "usingComponents": {
+    "van-field": "@vant/weapp/field/index"
+  }
+}
