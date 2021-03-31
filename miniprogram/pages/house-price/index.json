@@ -1,7 +1,7 @@
 {
-  "navigationBarTitleText": "看直播",
-  "disableScroll": true,
+  "navigationBarTitleText": "房价计算器",
   "usingComponents": {
-    "van-field": "@vant/weapp/field/index"
+    "van-field": "@vant/weapp/field/index",
+    "van-cell-group": "@vant/weapp/cell-group/index"
   }
 }
