@@ -1,11 +1,12 @@
 {
+  "entryPagePath": "pages/house-price/index",
   "pages": [
-    "pages/house-price/index",
     "pages/index/index",
     "pages/class/class",
     "pages/schedule/schedule",
     "pages/party/party",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/house-price/index"
   ],
   "tabBar": {
     "custom": true,

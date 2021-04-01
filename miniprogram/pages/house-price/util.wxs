@@ -1,0 +1,10 @@
+function formatAmount(num) {
+    if (num) {
+        return num.toString().replace(getRegExp('(?=\B(\d{3})+($|\.))', 'g'), ',')
+    }
+    return ''
+}
+
+module.exports = {
+    formatAmount: formatAmount
+}
