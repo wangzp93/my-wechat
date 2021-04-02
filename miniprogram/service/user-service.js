@@ -39,20 +39,42 @@ export function userLoginCloud() {
 /**
  * 用户静默登录
  */
-export function autoLogin() {
-  return wxLogin().then(code => {
-    const url = '/auth/api/wechat/micro/login/auto'
-    const params = {
-      sessionId: 'login',
-      code
-    }
-    return http.post(url, params)
-  }).then(userInfo => {
-    // 登录信息缓存到全局
-    wx.setStorageSync('userInfo', userInfo)
-    return userInfo
-  })
-}
+export const autoLogin = (function() {
+  let loginLock = false
+  if (!loginLock) { // 执行登录，限制并发
+    loginLock = true
+    wx.removeStorageSync('userInfo')  // 避免重新登录拿到旧session
+    return wxLogin().then(code => {
+      const url = '/auth/api/wechat/micro/login/auto'
+      const params = {
+        sessionId: 'login',
+        code
+      }
+      return http.post(url, params)
+    }).then(userInfo => {
+      // 登录信息缓存到全局
+      wx.setStorageSync('userInfo', userInfo)
+      loginLock = false
+      return userInfo
+    })
+  } else {  // 已有并发登录，定时器获取用户信息
+    return new Promise((resolve, reject)=> {
+      let timerCnt = 0
+      let timer = setInterval(()=> {
+        timerCnt++
+        const userInfo = wx.getStorageSync('userInfo')
+        if (userInfo && userInfo.sessionId) {
+          clearInterval(timer)
+          resolve(userInfo)
+        }
+        if (timerCnt > 30000) {
+          clearInterval(timer)
+          reject('登录超时')
+        }
+      }, 300)
+    })
+  }
+}())
 
 /**
  * 用户主动登录

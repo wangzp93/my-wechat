@@ -1,6 +1,7 @@
 import { wxShowLoading, wxHideLoading } from "./wx-utils";
+import { autoLogin } from "../service/user-service";
 
-const { host } = wx.getStorageSync('host')   // 全局host
+const host = wx.getStorageSync('host')   // 全局host
 let reqCount = 0    // 当前请求中的个数，用来控制loading
 
 /**
@@ -58,20 +59,12 @@ export const http = {
     return wxRequest(url, params, 'POST')
   }
 }
-
-/**
- * 小程序发送请求
- */
-export function wxRequest(url, data = {}, method) {
-  // sessionId
-  return checkSession(data.sessionId).then((sessionId) => {
-    data.sessionId = sessionId
-
+function wxRequest(url, data = {}, method) {
+  return checkSession(data).then(()=> {
     // 请求头
     let header = {
       'content-type': 'application/x-www-form-urlencoded',
     }
-
     return new Promise((resolve, reject) => {
       showLoading()
       wx.request({
@@ -83,12 +76,10 @@ export function wxRequest(url, data = {}, method) {
         enableQuic: true,
         success(res) {
           if (res.statusCode === 200) {
-            if (res.data.state.code === '0') {
-              // 处理成功状态的返回数据
+            if (res.data.state.code === '0') {  // 请求成功
               resolve(res.data.data)
             } else {
-              if (res.data.state.code === '401') {
-                // 重新登录，并更换sessionId重新请求
+              if (res.data.state.code === '401') {  // 401，重新请求
                 autoLogin().then(userInfo => {
                   data.sessionId = userInfo.sessionId
                   return wxRequest(url, data, method)
@@ -111,27 +102,30 @@ export function wxRequest(url, data = {}, method) {
 }
 
 /**
- * 校验session
+ * 检查请求参数中的session
  */
-export function checkSession(sessionId) {
-  return new Promise((resolve) => {
-    if (sessionId) {    // 参数中自带sessionId，直接返回
-      resolve(sessionId)
-    } else {    // 参数中没有，从全局缓存中取
-      const userInfo = wx.getStorageSync('userInfo')
-      if (userInfo && userInfo.sessionId) {     // 缓存中有sessionId
-        resolve(userInfo.sessionId)
-      } else {    // 缓存中没有sessionId，重复获取
-        const timer = setInterval(() => {
-          const userInfo = wx.getStorageSync('userInfo')
-          if (userInfo && userInfo.sessionId) {     // 缓存中有sessionId
-            clearInterval(timer)
-            resolve(userInfo.sessionId)
-          }
-        }, 300)
-      }
-    }
-  })
+function checkSession(data) {
+  if (data.sessionId) {   // 参数中有session，不做处理
+    return Promise.resolve()
+  } else {    // 参数中没有session，去获取一下
+    return getSession().then(sessionId=> {
+      data.sessionId = sessionId
+    })
+  }
+}
+
+/**
+ * 获取session
+ */
+function getSession() {
+  const userInfo = wx.getStorageSync('userInfo')
+  if (userInfo && userInfo.sessionId) {   // 有session，直接返回
+    return Promise.resolve(userInfo.sessionId)
+  } else {  // 没有session，调用登录接口获取
+    return autoLogin().then(res=> {
+      return res.sessionId
+    })
+  }
 }
 
 function showLoading() {
