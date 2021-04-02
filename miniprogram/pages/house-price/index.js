@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    labelWidth: '220rpx',
+    labelWidth: '240rpx',
 
     dealPrice: 1200000,   // 成交价
     area: 90,       // 面积
@@ -50,7 +50,7 @@ Page({
       if (area <= 90) {
         rate = 0.01
       } else if (area > 90 && area < 144) {
-        rate = 0.15
+        rate = 0.015
       } else {
         rate = 0.03
       }
@@ -77,7 +77,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 设置tabbar
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 'index'
+      })
+    }
+    // end
   },
 
 

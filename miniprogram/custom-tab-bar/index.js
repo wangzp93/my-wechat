@@ -4,10 +4,10 @@ Component({
      */
     data: {
         selected: 'index',
-        list: [
+        tabbarList: [
             {
                 id: 'index',
-                text: '首页',
+                text: '房价',
                 url: '/pages/house-price/index',
                 icon: '/images/tabbar/home.png',
                 selectedIcon: '/images/tabbar/home-active.png'

@@ -1,5 +1,5 @@
 <view class="tabbar">
-    <view wx:for="{{ list }}" wx:key="index" class="tabbar-item {{ selected === item.id ? 'active' : '' }}"
+    <view wx:for="{{ tabbarList }}" wx:key="index" class="tabbar-item {{ selected === item.id ? 'active' : '' }}"
           bind:tap="switchTab" data-url="{{ item.url }}"
     >
         <image class="tabbar-icon"

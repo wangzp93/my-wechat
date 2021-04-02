@@ -1,45 +1,47 @@
 <wxs src="./util.wxs" module="util" />
-<view style="padding-bottom: 130rpx;">
-    <van-field label="成交价" model:value="{{ dealPrice }}"
-               type="digit" title-width="{{ labelWidth }}" placeholder="请输入成交价" clearable
-    />
-    <van-field label="面积" model:value="{{ area }}"
-               type="digit" title-width="{{ labelWidth }}" placeholder="请输入成交价" clearable
-    />
-    <van-field label="单价" value="{{ util.formatAmount(unitPrice) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
-    <van-field label="定金" model:value="{{ deposit }}"
-               type="digit" title-width="{{ labelWidth }}" placeholder="请输入定金" clearable
-    />
-    <van-field label="尾款" model:value="{{ balance }}"
-               type="digit" title-width="{{ labelWidth }}" placeholder="请输入尾款" clearable
-    />
-    <van-field label="申报价" value="{{ util.formatAmount(declarePrice) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
-    <van-field label="首付比例" value="{{ util.formatAmount(firstRate) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
-    <van-field label="贷款额" value="{{ util.formatAmount(loan) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
-    <van-field label="中介费(1%)" value="{{ mediation }}"
-               type="digit" title-width="{{ labelWidth }}" placeholder="请输入中介费" clearable
-    />
-    <van-field label="贷款服务费(1%)" value="{{ loanService }}"
-               type="digit" title-width="{{ labelWidth }}" placeholder="请输入贷款服务费" clearable
-    />
-    <van-field label="契税(1%)" value="{{ util.formatAmount(deedTax) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
-    <van-field label="个税(1%)" value="{{ util.formatAmount(incomeTax) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
-    <van-field label="净首付" value="{{ util.formatAmount(pureFirstPay) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
-    <van-field label="总首付" value="{{ util.formatAmount(totalFirstPay) }}"
-               type="digit" title-width="{{ labelWidth }}" readonly
-    />
+<view class="wrap">
+    <view class="content">
+        <van-field label="成交价" model:value="{{ dealPrice }}" required
+                   type="digit" title-width="{{ labelWidth }}" placeholder="请输入成交价" clearable
+        />
+        <van-field label="面积" model:value="{{ area }}" required
+                   type="digit" title-width="{{ labelWidth }}" placeholder="请输入成交价" clearable
+        />
+        <van-field label="单价" value="{{ util.formatAmount(unitPrice) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+        <van-field label="定金" model:value="{{ deposit }}" required
+                   type="digit" title-width="{{ labelWidth }}" placeholder="请输入定金" clearable
+        />
+        <van-field label="尾款" model:value="{{ balance }}" required
+                   type="digit" title-width="{{ labelWidth }}" placeholder="请输入尾款" clearable
+        />
+        <van-field label="申报价" value="{{ util.formatAmount(declarePrice) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+        <van-field label="首付比例" value="{{ util.formatAmount(firstRate) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+        <van-field label="贷款额" value="{{ util.formatAmount(loan) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+        <van-field label="中介费(1%，可谈)" value="{{ mediation }}" required
+                   type="digit" title-width="{{ labelWidth }}" placeholder="请输入中介费" clearable
+        />
+        <van-field label="贷款服务费(1%)" value="{{ loanService }}" required
+                   type="digit" title-width="{{ labelWidth }}" placeholder="请输入贷款服务费" clearable
+        />
+        <van-field label="契税(1%)" value="{{ util.formatAmount(deedTax) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+        <van-field label="个税(1%)" value="{{ util.formatAmount(incomeTax) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+        <van-field label="净首付" value="{{ util.formatAmount(pureFirstPay) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+        <van-field label="总首付" value="{{ util.formatAmount(totalFirstPay) }}"
+                   type="digit" title-width="{{ labelWidth }}" readonly
+        />
+    </view>
 </view>

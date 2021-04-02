@@ -1,1 +1,9 @@
-/* pages/house-price/index.wxss */
+.wrap {
+    height: 100%;
+    padding-bottom: 130rpx;
+    box-sizing: border-box;
+}
+.content {
+    height: 100%;
+    overflow-y: auto;
+}

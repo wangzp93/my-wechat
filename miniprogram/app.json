@@ -22,25 +22,21 @@
         "selectedIconPath": "images/tabbar/home-active.png"
       },
       {
-        "text": "班级",
         "pagePath": "pages/class/class"
       },
       {
-        "text": "课表",
         "pagePath": "pages/schedule/schedule"
       },
       {
-        "text": "活动",
         "pagePath": "pages/party/party"
       },
       {
-        "text": "我的",
         "pagePath": "pages/me/me"
       }
     ]
   },
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#FFF",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#C00",
     "navigationBarTitleText": "我的小程序",
