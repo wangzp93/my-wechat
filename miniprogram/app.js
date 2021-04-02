@@ -10,8 +10,8 @@ App({
     initCloud()
 
     // 静默登录
-    autoLoginCloud()
-    // autoLogin()
+    // autoLoginCloud()
+    autoLogin()
   },
 
   onShow(options) {
