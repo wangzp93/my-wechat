@@ -1,4 +1,4 @@
-import { wxShowLoading, wxHideLoading } from "./wx-utils";
+import {wxShowLoading, wxHideLoading, wxGetUserInfo} from "./wx-utils";
 import { autoLogin } from "../service/user-service";
 
 const host = wx.getStorageSync('host')   // 全局host
@@ -11,7 +11,7 @@ let reqCount = 0    // 当前请求中的个数，用来控制loading
  */
 export function cloudFunction(name, data = {}) {
   return new Promise((resolve, reject) => {
-    showLoading()
+    showReqLoading()
     wx.cloud.callFunction({
       name,
       data,
@@ -19,7 +19,7 @@ export function cloudFunction(name, data = {}) {
         resolve(res.result)
       },
       fail: reject,
-      complete: hideLoading
+      complete: hideReqLoading
     })
   })
 }
@@ -59,6 +59,10 @@ export const http = {
     return wxRequest(url, params, 'POST')
   }
 }
+
+/**
+ * 小程序发起请求
+ */
 function wxRequest(url, data = {}, method) {
   return checkSession(data).then(()=> {
     // 请求头
@@ -66,7 +70,7 @@ function wxRequest(url, data = {}, method) {
       'content-type': 'application/x-www-form-urlencoded',
     }
     return new Promise((resolve, reject) => {
-      showLoading()
+      showReqLoading()
       wx.request({
         url: host + url,
         data,
@@ -79,11 +83,8 @@ function wxRequest(url, data = {}, method) {
             if (res.data.state.code === '0') {  // 请求成功
               resolve(res.data.data)
             } else {
-              if (res.data.state.code === '401') {  // 401，重新请求
-                autoLogin().then(userInfo => {
-                  data.sessionId = userInfo.sessionId
-                  return wxRequest(url, data, method)
-                }).then(reTryRes => {
+              if (res.data.state.code === '401') {  // 401
+                do401().then(reTryRes => {
                   resolve(reTryRes)
                 }).catch(err => {
                   reject(err)
@@ -95,9 +96,19 @@ function wxRequest(url, data = {}, method) {
           reject(res.errMsg)
         },
         fail: reject,
-        complete: hideLoading
+        complete: hideReqLoading
       })
     })
+  })
+}
+
+/**
+ * 处理401，重新请求
+ */
+function do401(url, data, method) {
+  return autoLogin().then(userInfo => {
+    data.sessionId = userInfo.sessionId
+    return wxRequest(url, data, method)
   })
 }
 
@@ -108,33 +119,34 @@ function checkSession(data) {
   if (data.sessionId) {   // 参数中有session，不做处理
     return Promise.resolve()
   } else {    // 参数中没有session，去获取一下
-    return getSession().then(sessionId=> {
-      data.sessionId = sessionId
+    return getUserInfo().then(userInfo=> {
+      data.sessionId = userInfo.sessionId
     })
   }
 }
 
 /**
- * 获取session
+ * 获取用户信息
  */
-function getSession() {
+function getUserInfo() {
   const userInfo = wx.getStorageSync('userInfo')
-  if (userInfo && userInfo.sessionId) {   // 有session，直接返回
-    return Promise.resolve(userInfo.sessionId)
-  } else {  // 没有session，调用登录接口获取
-    return autoLogin().then(res=> {
-      return res.sessionId
-    })
+  if (userInfo) {   // userInfo，直接返回
+    return Promise.resolve(userInfo)
+  } else {  // 没有userInfo，调用登录接口获取
+    return autoLogin()
   }
 }
 
-function showLoading() {
+/**
+ * 请求loading
+ */
+function showReqLoading() {
   if (reqCount++ === 0) {
     wxShowLoading('加载中')
   }
 }
 
-function hideLoading() {
+function hideReqLoading() {
   if (--reqCount === 0) {
     wxHideLoading()
   }
